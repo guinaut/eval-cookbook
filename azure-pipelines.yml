@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    curl -O -L https://github.com/okareo-ai/okareo-cli/releases/latest/download/okareo_linux_386.tar.gz
+    tar -xvf okareo_linux_386.tar.gz
+    ls -al
+    chmod 777 okareo
+    ./okareo init -l ts
+    ./okareo run -f example
+  displayName: 'Install and Run Okareo CLI'

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/node": "^24.0.1",
+    "okareo-ts-sdk": "^0.0.58"
+  }
+}

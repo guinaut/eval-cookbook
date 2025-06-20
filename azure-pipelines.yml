@@ -1,27 +1,25 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
   - main
 
 pool:
-  name: Self-Hosted
+  name: Self-Hosted # Make sure this matches the name of your self-hosted agent pool
 
 steps:
-  - script: |
-      export OKAREO_API_KEY=$(OKAREO_API_KEY)
-    displayName: "Setup API Keys"
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "3.x" # Adjust to your preferred Python version
+      addToPath: true
 
   - script: |
-      curl -O -L https://github.com/okareo-ai/okareo-cli/releases/latest/download/okareo_darwin_arm64.tar.gz
-      tar -xvf okareo_darwin_arm64.tar.gz
-      chmod 777 okareo
-    displayName: "Install Okareo CLI"
+      echo "Running on agent: $AGENT_NAME"
+      python3 --version
+    displayName: "Debug Agent Info"
 
   - script: |
-      ./okareo init -l ts
-      ls -al
-      ./okareo run -f example
-    displayName: "Run Okareo Example"
+      python3 -m pip install --upgrade pip
+      pip install okareo
+    displayName: "Install Okareo Python Package"
+
+  - script: |
+      python3 example.py
+    displayName: "Run example.py script"

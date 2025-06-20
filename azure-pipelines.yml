@@ -10,14 +10,18 @@ pool:
   name: Self-Hosted
 
 steps:
-  - script: echo Hello, world!
-    displayName: "Run a one-line script"
+  - script: |
+      export OKAREO_API_KEY=$(OKAREO_API_KEY)
+    displayName: "Setup API Keys"
 
   - script: |
       curl -O -L https://github.com/okareo-ai/okareo-cli/releases/latest/download/okareo_darwin_arm64.tar.gz
       tar -xvf okareo_darwin_arm64.tar.gz
-      ls -al
       chmod 777 okareo
+    displayName: "Install Okareo CLI"
+
+  - script: |
       ./okareo init -l ts
+      ls -al
       ./okareo run -f example
-    displayName: "Install and Run Okareo CLI"
+    displayName: "Run Okareo Example"

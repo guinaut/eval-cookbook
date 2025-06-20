@@ -22,4 +22,6 @@ steps:
 
   - script: |
       python3 example.py
+    env:
+      OKAREO_API_KEY: $(OKAREO_API_KEY)
     displayName: "Run example.py script"

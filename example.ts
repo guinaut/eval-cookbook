@@ -34,6 +34,7 @@ const main = async () => {
       models: {
         type: "openai",
         model_id: "gpt-4o-mini",
+        temperature: 0,
         system_prompt_template:
           "Always return numeric answers backwards. e.g. 1234 becomes 4321.",
         user_prompt_template: "{scenario_input}",
@@ -52,7 +53,6 @@ const main = async () => {
       checks: ["context_consistency"],
     });
 
-    console.log("Evaluation Results:", evaluation.app_link);
     const reporter = new GenerationReporter({
       eval_run: evaluation,
       pass_rate: {
